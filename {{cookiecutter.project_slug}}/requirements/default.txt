@@ -1,0 +1,10 @@
+Cython==0.29.14
+uvloop==0.14.0
+
+aiohttp==3.6.2
+{%- if cookiecutter.mysql_version != "None" %}
+aiomysql==0.0.20
+{%- endif %}
+dynaconf[yaml]==2.2.0
+python-json-logger==0.1.11
+tartiflette==1.1.1

@@ -1,0 +1,23 @@
+version: 1
+
+update_configs:
+  - package_manager: "docker"
+    directory: "/"
+    update_schedule: "weekly"
+    default_reviewers:
+      - "Maximilien-R"
+  - package_manager: "python"
+    directory: "/"
+    update_schedule: "weekly"
+    default_reviewers:
+      - "Maximilien-R"
+  - package_manager: "docker"
+    directory: "/{{cookiecutter.project_slug}}"
+    update_schedule: "weekly"
+    default_reviewers:
+      - "Maximilien-R"
+  - package_manager: "python"
+    directory: "/{{cookiecutter.project_slug}}"
+    update_schedule: "weekly"
+    default_reviewers:
+      - "Maximilien-R"

@@ -1,0 +1,110 @@
+version: "3.4"
+
+x-default-build: &default-build
+  build: .
+  {%- if cookiecutter.mysql_version != "None" %}
+  environment:
+    - DATABASE_IS_OPTIONAL=1
+  {%- endif %}
+  ports:
+    - 8090:8090
+  networks:
+    - ns
+
+x-development-build: &development-build
+  <<: *default-build
+  build:
+    context: .
+    dockerfile: Dockerfile
+    args:
+      requirement_file: development.txt
+
+x-testing-build: &testing-build
+  <<: *default-build
+  build:
+    context: .
+    dockerfile: Dockerfile
+    args:
+      requirement_file: testing.txt
+  volumes:
+    - ./reports:/usr/src/app/reports
+
+x-mounted-app: &mounted-app
+  volumes:
+    - .:/usr/src/app
+{%- if cookiecutter.mysql_version != "None" %}
+
+x-database-dependent: &database-dependent
+  environment:
+    - DATABASE_IS_OPTIONAL=0
+  depends_on:
+    - database
+{%- endif %}
+
+services:
+  {%- if cookiecutter.mysql_version != "None" %}
+  database:
+    image: mysql:{{cookiecutter.mysql_version}}
+    ports:
+      - 3306
+    environment:
+      - MYSQL_HOST=database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE={{cookiecutter.project_slug}}
+    volumes:
+      - ./.docker/fixtures.sql:/docker-entrypoint-initdb.d/fixtures.sql
+    networks:
+      - ns
+  {% endif %}
+  app:
+    <<: *development-build
+    {%- if cookiecutter.mysql_version != "None" %}
+    <<: *database-dependent
+    {%- endif %}
+
+  format-imports:
+    <<: *development-build
+    <<: *mounted-app
+    command: isort -rc {{cookiecutter.project_slug}}/. tests/.
+
+  format:
+    <<: *development-build
+    <<: *mounted-app
+    command: black -l 79 --target-version py36 {{cookiecutter.project_slug}} tests
+
+  check-imports:
+    <<: *development-build
+    command: isort --check-only -rc {{cookiecutter.project_slug}}/. tests/.
+
+  check-format:
+    <<: *development-build
+    command: black -l 79 --target-version py36 --check {{cookiecutter.project_slug}} tests
+
+  style:
+    <<: *development-build
+    command: pylint --reports=n --rcfile=pylintrc {{cookiecutter.project_slug}} tests
+
+  complexity:
+    <<: *development-build
+    command: xenon --max-absolute B --max-modules B --max-average A {{cookiecutter.project_slug}}
+
+  security-sast:
+    <<: *development-build
+    command: bandit -r {{cookiecutter.project_slug}}
+
+  test-unit:
+    <<: *testing-build
+    command: py.test -s tests/unit -vvvvvv --junitxml=reports/report_unit_tests.xml --cov . --cov-config .coveragerc --cov-report term-missing --cov-report xml:reports/coverage_unit.xml
+
+  test-functional:
+    <<: *testing-build
+    {%- if cookiecutter.mysql_version != "None" %}
+    <<: *database-dependent
+    {%- endif %}
+    command: py.test -s tests/functional -vvvvvv --junitxml=reports/report_func_tests.xml --cov . --cov-config .coveragerc --cov-report term-missing --cov-report xml:reports/coverage_functional.xml
+
+networks:
+  ns:
+    driver: bridge

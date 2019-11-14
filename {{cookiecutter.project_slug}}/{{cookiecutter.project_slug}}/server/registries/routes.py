@@ -1,0 +1,19 @@
+from {{cookiecutter.project_slug}}.server.handlers import (
+    handle_graphql,
+    handle_health_live,
+    handle_health_ready,
+)
+
+__all__ = ("register_routes",)
+
+
+def register_routes(app: "aiohttp.web.Application") -> None:
+    """
+    Registers routes into the application.
+    :param app: application to which register the routes
+    :type app: aiohttp.web.Application
+    """
+    app.router.add_get("/graphql", handle_graphql)
+    app.router.add_post("/graphql", handle_graphql)
+    app.router.add_get("/health/live", handle_health_live)
+    app.router.add_get("/health/ready", handle_health_ready)

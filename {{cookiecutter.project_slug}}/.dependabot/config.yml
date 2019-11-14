@@ -1,0 +1,13 @@
+version: 1
+
+update_configs:
+  - package_manager: "docker"
+    directory: "/"
+    update_schedule: "weekly"
+    default_reviewers:
+      - "{{ cookiecutter.github_username }}"
+  - package_manager: "python"
+    directory: "/requirements"
+    update_schedule: "weekly"
+    default_reviewers:
+      - "{{ cookiecutter.github_username }}"

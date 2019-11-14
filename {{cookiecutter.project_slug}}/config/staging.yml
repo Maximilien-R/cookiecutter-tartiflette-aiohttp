@@ -1,0 +1,9 @@
+staging:
+  logging:
+    root:
+      level: INFO
+      handlers: [ json ]
+    loggers:
+      aiohttp.access:
+        level: ERROR
+        handlers: [ json ]

@@ -1,0 +1,37 @@
+default:
+  {%- if cookiecutter.mysql_version != "None" %}
+  database:
+    host: database
+    port: 3306
+    user: user
+    password: password
+    database: {{cookiecutter.project_slug}}
+  {% endif %}
+  logging:
+    version: 1
+    disable_existing_loggers: false
+    formatters:
+      default:
+        format: "%(asctime)s - [%(levelname)s] %(name)s - %(pathname)s:%(lineno)d - %(message)s"
+      json:
+        (): pythonjsonlogger.jsonlogger.JsonFormatter
+        format: "%(levelname)s %(pathname)s %(lineno)d %(message)s"
+        prefix: "[json] "
+        timestamp: true
+    handlers:
+      black_hole:
+        class: logging.NullHandler
+        level: DEBUG
+      console:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: default
+        stream: ext://sys.stdout
+      json:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: json
+        stream: ext://sys.stdout
+    loggers:
+      aiohttp.access:
+        level: ERROR

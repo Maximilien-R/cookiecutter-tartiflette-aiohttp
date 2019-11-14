@@ -1,0 +1,5 @@
+testing:
+  logging:
+    root:
+      level: DEBUG
+      handlers: [ console ]

@@ -1,0 +1,5 @@
+development:
+  logging:
+    root:
+      level: DEBUG
+      handlers: [ console ]
