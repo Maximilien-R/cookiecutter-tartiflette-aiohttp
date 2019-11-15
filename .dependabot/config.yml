@@ -21,3 +21,7 @@ update_configs:
     update_schedule: "weekly"
     default_reviewers:
       - "Maximilien-R"
+    ignored_updates:
+      - match:
+          # Ignore Jinja templates syntax
+          dependency_name: "{%-*"
