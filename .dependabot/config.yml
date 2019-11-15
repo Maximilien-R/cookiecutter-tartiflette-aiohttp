@@ -12,12 +12,12 @@ update_configs:
     default_reviewers:
       - "Maximilien-R"
   - package_manager: "docker"
-    directory: "/{{cookiecutter.project_slug}}"
+    directory: "/{{cookiecutter.project_slug}}/requirements"
     update_schedule: "weekly"
     default_reviewers:
       - "Maximilien-R"
   - package_manager: "python"
-    directory: "/{{cookiecutter.project_slug}}"
+    directory: "/{{cookiecutter.project_slug}}/requirements"
     update_schedule: "weekly"
     default_reviewers:
       - "Maximilien-R"
