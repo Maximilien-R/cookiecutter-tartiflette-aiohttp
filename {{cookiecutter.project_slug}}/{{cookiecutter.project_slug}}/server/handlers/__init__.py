@@ -1,7 +1,15 @@
 from .graphql import handle_graphql
+{%- if cookiecutter.add_health_routes == "yes" %}
 from .health import (
     handle_live as handle_health_live,
     handle_ready as handle_health_ready,
 )
+{%- endif %}
 
-__all__ = ("handle_health_live", "handle_health_ready", "handle_graphql")
+__all__ = (
+    {%- if cookiecutter.add_health_routes == "yes" %}
+    "handle_health_live",
+    "handle_health_ready",
+    {%- endif %}
+    "handle_graphql",
+)
