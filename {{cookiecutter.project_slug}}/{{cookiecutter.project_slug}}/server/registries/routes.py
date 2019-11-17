@@ -1,7 +1,9 @@
 from {{cookiecutter.project_slug}}.server.handlers import (
     handle_graphql,
+    {%- if cookiecutter.add_health_routes == "yes" %}
     handle_health_live,
     handle_health_ready,
+    {%- endif %}
 )
 
 __all__ = ("register_routes",)
@@ -15,5 +17,7 @@ def register_routes(app: "aiohttp.web.Application") -> None:
     """
     app.router.add_get("/graphql", handle_graphql)
     app.router.add_post("/graphql", handle_graphql)
+    {%- if cookiecutter.add_health_routes == "yes" %}
     app.router.add_get("/health/live", handle_health_live)
     app.router.add_get("/health/ready", handle_health_ready)
+    {%- endif %}
