@@ -1,0 +1,5 @@
+build:
+  docker:
+    web: Dockerfile
+run:
+  web: gunicorn --worker-class aiohttp.GunicornUVLoopWebWorker {{cookiecutter.project_slug}}.server.factory:create_app

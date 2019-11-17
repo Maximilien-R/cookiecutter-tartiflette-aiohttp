@@ -7,6 +7,8 @@ a [`tartiflette`](https://github.com/tartiflette/tartiflette) AIOHTTP API.
  
 * [Features](#features)
 * [Usage](#usage)
+* [Deployment](#deployment)
+    * [Heroku](#heroku)
 * [TODO](#todo)
  
 ## Features
@@ -56,6 +58,18 @@ $ make security-sast
 $ make test
 $ make down
 $ make clean
+```
+
+## Deployment
+
+### Heroku
+
+```
+$ heroku login
+$ heroku create
+$ heroku stack:set container
+$ git push heroku master
+$ heroku open
 ```
 
 ## TODO

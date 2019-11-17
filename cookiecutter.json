@@ -20,5 +20,9 @@
     "5.5",
     "None"
   ],
-  "add_health_routes": ["yes", "no"]
+  "add_health_routes": ["yes", "no"],
+  "deployment": [
+    "Heroku",
+    "None"
+  ]
 }

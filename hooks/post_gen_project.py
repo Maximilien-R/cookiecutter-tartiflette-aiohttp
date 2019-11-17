@@ -11,6 +11,7 @@ _PROJECT_SLUG = "{{ cookiecutter.project_slug }}"
 _OPEN_SOURCE_LICENSE = "{{ cookiecutter.open_source_license }}"
 _MYSQL_VERSION = "{{ cookiecutter.mysql_version }}"
 _ADD_HEALTH_ROUTES = "{{ cookiecutter.add_health_routes }}"
+_DEPLOYMENT = "{{ cookiecutter.deployment }}"
 
 
 def _remove_files(files):
@@ -84,6 +85,9 @@ def main():
                 ),
             ]
         )
+
+    if _DEPLOYMENT != "Heroku":
+        _remove_files("heroku.yml")
 
 
 if __name__ == "__main__":
