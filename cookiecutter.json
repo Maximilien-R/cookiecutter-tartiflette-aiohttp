@@ -21,6 +21,7 @@
     "None"
   ],
   "add_health_routes": ["yes", "no"],
+  "add_graphiql_route": ["yes", "no"],
   "deployment": [
     "Heroku",
     "None"

@@ -11,6 +11,7 @@ _PROJECT_SLUG = "{{ cookiecutter.project_slug }}"
 _OPEN_SOURCE_LICENSE = "{{ cookiecutter.open_source_license }}"
 _MYSQL_VERSION = "{{ cookiecutter.mysql_version }}"
 _ADD_HEALTH_ROUTES = "{{ cookiecutter.add_health_routes }}"
+_ADD_GRAPHIQL_ROUTE = "{{ cookiecutter.add_graphiql_route }}"
 _DEPLOYMENT = "{{ cookiecutter.deployment }}"
 
 
@@ -82,6 +83,24 @@ def main():
                     "server",
                     "handlers",
                     "health",
+                ),
+            ]
+        )
+
+    if _ADD_GRAPHIQL_ROUTE != "yes":
+        _remove_files(
+            [
+                os.path.join(_PROJECT_SLUG, "server", "handlers", "graphiql"),
+                os.path.join(
+                    "tests", "functional", _PROJECT_SLUG, "graphiql",
+                ),
+                os.path.join(
+                    "tests",
+                    "unit",
+                    _PROJECT_SLUG,
+                    "server",
+                    "handlers",
+                    "graphiql",
                 ),
             ]
         )
