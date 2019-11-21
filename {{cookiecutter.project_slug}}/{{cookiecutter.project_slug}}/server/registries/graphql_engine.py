@@ -1,5 +1,7 @@
 from tartiflette import Engine
-
+{% if cookiecutter.add_sentry == "yes" %}
+from {{cookiecutter.project_slug}}.utils import sentry_error_coercer
+{% endif %}
 __all__ = ("register_graphql_engine",)
 
 _GRAPHQL_ENGINE: "Engine" = Engine(
@@ -9,6 +11,9 @@ _GRAPHQL_ENGINE: "Engine" = Engine(
         "{{cookiecutter.project_slug}}.graphql.resolvers",
         "{{cookiecutter.project_slug}}.graphql.scalars",
     ],
+    {%- if cookiecutter.add_sentry == "yes" %}
+    error_coercer=sentry_error_coercer,
+    {%- endif %}
 )
 
 
