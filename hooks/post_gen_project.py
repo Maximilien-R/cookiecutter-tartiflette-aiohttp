@@ -12,6 +12,7 @@ _OPEN_SOURCE_LICENSE = "{{ cookiecutter.open_source_license }}"
 _MYSQL_VERSION = "{{ cookiecutter.mysql_version }}"
 _ADD_HEALTH_ROUTES = "{{ cookiecutter.add_health_routes }}"
 _ADD_GRAPHIQL_ROUTE = "{{ cookiecutter.add_graphiql_route }}"
+_ADD_SENTRY = "{{ cookiecutter.add_sentry }}"
 _DEPLOYMENT = "{{ cookiecutter.deployment }}"
 
 
@@ -103,6 +104,20 @@ def main():
                     "graphiql",
                 ),
             ]
+        )
+
+    if _ADD_SENTRY != "yes":
+        _remove_files(
+            [
+                os.path.join(_PROJECT_SLUG, "utils", "sentry.py"),
+                os.path.join(
+                    "tests", "unit", _PROJECT_SLUG, "utils", "test_sentry.py",
+                ),
+            ]
+        )
+        _remove_line_in_file(
+            r"^sentry-sdk==[0-9]+\.[0-9]+\.[0-9]+$",
+            os.path.join("requirements", "default.txt"),
         )
 
     if _DEPLOYMENT != "Heroku":

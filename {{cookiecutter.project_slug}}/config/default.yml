@@ -6,7 +6,11 @@ default:
     user: user
     password: password
     database: {{cookiecutter.project_slug}}
-  {% endif %}
+  {%- endif %}
+  {%- if cookiecutter.add_sentry == "yes" %}
+  sentry:
+    dsn: https://<key>@sentry.io/<project>
+  {%- endif %}
   logging:
     version: 1
     disable_existing_loggers: false
