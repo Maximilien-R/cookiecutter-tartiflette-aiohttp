@@ -1,18 +1,6 @@
 version: "3.4"
 
-x-default-build: &default-build
-  build: .
-  {%- if cookiecutter.mysql_version != "None" %}
-  environment:
-    - DATABASE_IS_OPTIONAL=1
-  {%- endif %}
-  ports:
-    - 8090:8090
-  networks:
-    - ns
-
 x-development-build: &development-build
-  <<: *default-build
   build:
     context: .
     dockerfile: Dockerfile
@@ -20,26 +8,11 @@ x-development-build: &development-build
       requirement_file: development.txt
 
 x-testing-build: &testing-build
-  <<: *default-build
   build:
     context: .
     dockerfile: Dockerfile
     args:
       requirement_file: testing.txt
-  volumes:
-    - ./reports:/usr/src/app/reports
-
-x-mounted-app: &mounted-app
-  volumes:
-    - .:/usr/src/app
-{%- if cookiecutter.mysql_version != "None" %}
-
-x-database-dependent: &database-dependent
-  environment:
-    - DATABASE_IS_OPTIONAL=0
-  depends_on:
-    - database
-{%- endif %}
 
 services:
   {%- if cookiecutter.mysql_version != "None" %}
@@ -60,50 +33,114 @@ services:
   {% endif %}
   app:
     <<: *development-build
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=development
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=0
+      {%- endif %}
     {%- if cookiecutter.mysql_version != "None" %}
-    <<: *database-dependent
+    depends_on:
+      - database
     {%- endif %}
+    ports:
+      - 8090:8090
+    networks:
+      - ns
 
   format-imports:
     <<: *development-build
-    <<: *mounted-app
     command: isort -rc {{cookiecutter.project_slug}}/. tests/.
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=development
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=1
+      {%- endif %}
+    volumes:
+      - .:/usr/src/app
 
   format:
     <<: *development-build
-    <<: *mounted-app
     command: black -l 79 --target-version py36 {{cookiecutter.project_slug}} tests
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=development
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=1
+      {%- endif %}
+    volumes:
+      - .:/usr/src/app
 
   check-imports:
     <<: *development-build
     command: isort --check-only -rc {{cookiecutter.project_slug}}/. tests/.
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=development
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=1
+      {%- endif %}
 
   check-format:
     <<: *development-build
     command: black -l 79 --target-version py36 --check {{cookiecutter.project_slug}} tests
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=development
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=1
+      {%- endif %}
 
   style:
     <<: *development-build
     command: pylint --reports=n --rcfile=pylintrc {{cookiecutter.project_slug}} tests
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=development
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=1
+      {%- endif %}
 
   complexity:
     <<: *development-build
     command: xenon --max-absolute B --max-modules B --max-average A {{cookiecutter.project_slug}}
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=development
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=1
+      {%- endif %}
 
   security-sast:
     <<: *development-build
     command: bandit -r {{cookiecutter.project_slug}}
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=development
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=1
+      {%- endif %}
 
   test-unit:
     <<: *testing-build
     command: py.test -s tests/unit -vvvvvv --junitxml=reports/report_unit_tests.xml --cov . --cov-config .coveragerc --cov-report term-missing --cov-report xml:reports/coverage_unit.xml
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=testing
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=1
+      {%- endif %}
+    volumes:
+      - ./reports:/usr/src/app/reports
 
   test-functional:
     <<: *testing-build
-    {%- if cookiecutter.mysql_version != "None" %}
-    <<: *database-dependent
-    {%- endif %}
     command: py.test -s tests/functional -vvvvvv --junitxml=reports/report_func_tests.xml --cov . --cov-config .coveragerc --cov-report term-missing --cov-report xml:reports/coverage_functional.xml
+    environment:
+      - {{cookiecutter.project_slug.upper()}}_ENV=testing
+      {%- if cookiecutter.mysql_version != "None" %}
+      - DATABASE_IS_OPTIONAL=0
+      {%- endif %}
+    {%- if cookiecutter.mysql_version != "None" %}
+    depends_on:
+      - database
+    {%- endif %}
+    volumes:
+      - ./reports:/usr/src/app/reports
+    networks:
+      - ns
 
 networks:
   ns:
