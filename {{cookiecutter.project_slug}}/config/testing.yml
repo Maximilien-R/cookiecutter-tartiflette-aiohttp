@@ -1,4 +1,8 @@
 testing:
+  {%- if cookiecutter.add_sentry == "yes" %}
+  sentry:
+    dsn: ""
+  {%- endif %}
   logging:
     root:
       level: DEBUG
