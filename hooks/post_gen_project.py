@@ -57,6 +57,7 @@ def main():
                 os.path.join(
                     _PROJECT_SLUG, "server", "registries", "database.py"
                 ),
+                os.path.join(_PROJECT_SLUG, "utils", "database.py"),
                 os.path.join(
                     "tests",
                     "unit",

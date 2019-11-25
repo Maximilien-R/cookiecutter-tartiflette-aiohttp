@@ -1,11 +1,7 @@
 default:
   {%- if cookiecutter.mysql_version != "None" %}
   database:
-    host: database
-    port: 3306
-    user: user
-    password: password
-    database: {{cookiecutter.project_slug}}
+    url: "mysql://user:password@database:3306/{{cookiecutter.project_slug}}"
   {%- endif %}
   {%- if cookiecutter.add_sentry == "yes" %}
   sentry:

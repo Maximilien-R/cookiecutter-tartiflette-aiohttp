@@ -12,16 +12,17 @@ import sys
 
 import aiomysql
 
-from {{cookiecutter.project_slug}}.config import config
+from {{cookiecutter.project_slug}}.utils import extract_database_credentials
 
 
 async def _connection_to_database():
+    database_credentials = extract_database_credentials()
     connection = await aiomysql.connect(
-        host=config["database"]["host"],
-        port=config["database"]["port"],
-        user=config["database"]["user"],
-        password=config["database"]["password"],
-        db=config["database"]["database"],
+        host=database_credentials["host"],
+        port=database_credentials["port"],
+        user=database_credentials["user"],
+        password=database_credentials["password"],
+        db=database_credentials["database"],
     )
     connection.close()
 
