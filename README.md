@@ -13,13 +13,19 @@ a [`tartiflette`](https://github.com/tartiflette/tartiflette) AIOHTTP API.
  
 ## Features
 
-* [`gazr`](https://gazr.io) specification
-* Unit testing with [`pytest`](https://github.com/pytest-dev/pytest)
-* Functional testing with [`pytest`](https://github.com/pytest-dev/pytest)
-* Docker support using [`docker-compose`](https://github.com/docker/compose) for development
-* Optional MySQL database
-* Configuration through `.yml` files and  environment variables with
-[`dynaconf`](https://github.com/rochacbruno/dynaconf)
+Opinionated:
+* Provides `Docker` support through [`docker-compose`](https://github.com/docker/compose)
+* Follows the [`gazr`](https://gazr.io) specification to launch common tasks
+* Layered environment configuration system through [`dynaconf`](https://github.com/rochacbruno/dynaconf)
+* Implements unit tests with [`pytest`](https://github.com/pytest-dev/pytest)
+* Implements functional tests with [`pytest`](https://github.com/pytest-dev/pytest)
+
+Optionals:
+* Provides `MySQL` database through [`docker-compose`](https://github.com/docker/compose)
+* Provides implementations for health routes (`/health/ready` & `/health/live`)
+* Provides a GraphiQL route (`/graphiql`)
+* Provides [`Sentry`](https://sentry.io) integration
+* Provides a pre-configured container deployment configuration to [`Heroku`](https://www.heroku.com) cloud provider
 
 ## Usage
 
@@ -64,17 +70,47 @@ $ make clean
 
 ### Heroku
 
+To deploy your project to Heroku, please, follow those simple steps:
+
+If you haven't an Heroku account yet, please, create one [here](https://signup.heroku.com).
+
+Then, install the `heroku` CLI to be able to deploy your project, documentation
+is available [here](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).
+
+Once your Heroku account created and the `heroku` CLI installed, you can follow
+thoses steps to deploy your project:
 ```
-$ heroku login
-$ heroku create
-$ heroku stack:set container
+# Note: replace occurrences of `MY_APP` with your `project_slug` as uppercase
+
+# Connect yourself to your Heroku account through the CLI
+$ heroku login -i
+
+# Create a new container app
+$ heroku apps:create --stack container
+
+# Adds MySQL adddon if necessary
+$ heroku addons:create cleardb:ignite --version=5.7
+$ heroku config:set MY_APP_database__url=$(heroku config:get CLEARDB_DATABASE_URL)
+
+# Adds Sentry adddon if necessary
+$ heroku addons:create sentry:f1
+$ heroku config:set MY_APP_sentry__dsn=$(heroku config:get SENTRY_DSN)
+
+# Push your app to Heroku
 $ git push heroku master
+
+# Open your app
 $ heroku open
+
+# Shutdown your app
+$ heroku ps:scale web=0
+
+# Destroy your app
+$ heroku apps:destroy
 ```
 
 ## TODO
 
 * Add an option to use `PostgreSQL` instead of `MySQL`
 * Setup some CI configuration (Travis-CI, GitHub Actions...)
-* Add an option to setup a GraphiQL route
 * Add an option to handle GraphQL subscriptions
