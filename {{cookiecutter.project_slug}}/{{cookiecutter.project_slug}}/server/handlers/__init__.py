@@ -1,7 +1,7 @@
-from .graphql import handle_graphql
-{%- if cookiecutter.add_graphiql_route == "yes" %}
+{%- if cookiecutter.add_graphiql_route == "yes" -%}
 from .graphiql import handle_graphiql
-{%- endif %}
+{% endif -%}
+from .graphql import handle_graphql
 {%- if cookiecutter.add_health_routes == "yes" %}
 from .health import (
     handle_live as handle_health_live,

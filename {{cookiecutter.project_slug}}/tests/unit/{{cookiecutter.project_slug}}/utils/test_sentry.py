@@ -1,4 +1,4 @@
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -33,7 +33,7 @@ def test_configure_sentry():
                         integrations=[
                             logging_integration_mock,
                             aiohttp_integration_mock,
-                        ]
+                        ],
                     )
 
 

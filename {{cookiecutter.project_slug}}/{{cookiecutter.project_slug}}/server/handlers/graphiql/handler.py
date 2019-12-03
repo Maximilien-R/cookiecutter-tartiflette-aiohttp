@@ -29,6 +29,5 @@ async def handle_graphiql(
     """
     # pylint: disable=unused-argument
     return web.Response(
-        text=_get_graphiql_template(),
-        headers={"Content-Type": "text/html"},
+        text=_get_graphiql_template(), headers={"Content-Type": "text/html"}
     )

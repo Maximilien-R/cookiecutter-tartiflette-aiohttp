@@ -1,7 +1,7 @@
 import logging
 import logging.config
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 import sentry_sdk
 
@@ -22,12 +22,9 @@ def configure_sentry() -> None:
     sentry_sdk.init(
         dsn=config["sentry"]["dsn"],
         integrations=[
-            LoggingIntegration(
-                level=logging.INFO,
-                event_level=logging.ERROR,
-            ),
+            LoggingIntegration(level=logging.INFO, event_level=logging.ERROR),
             AioHttpIntegration(),
-        ]
+        ],
     )
 
 
