@@ -1,8 +1,8 @@
 from {{cookiecutter.project_slug}}.server.handlers import (
-    handle_graphql,
     {%- if cookiecutter.add_graphiql_route == "yes" %}
     handle_graphiql,
     {%- endif %}
+    handle_graphql,
     {%- if cookiecutter.add_health_routes == "yes" %}
     handle_health_live,
     handle_health_ready,
