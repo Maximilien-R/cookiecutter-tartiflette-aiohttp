@@ -1,4 +1,4 @@
-Cython==0.29.19
+Cython==0.29.20
 uvloop==0.14.0
 
 aiohttp==3.6.2
