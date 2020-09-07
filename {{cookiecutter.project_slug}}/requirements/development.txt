@@ -2,6 +2,6 @@
 
 bandit==1.6.2
 black==19.10b0
-isort==4.3.21
+isort==5.5.1
 pylint==2.5.3
 xenon==0.7.0
