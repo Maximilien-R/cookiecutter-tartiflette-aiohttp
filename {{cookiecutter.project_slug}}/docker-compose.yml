@@ -49,7 +49,7 @@ services:
 
   format-imports:
     <<: *development-build
-    command: isort -rc {{cookiecutter.project_slug}}/. tests/.
+    command: isort {{cookiecutter.project_slug}}/. tests/.
     environment:
       - {{cookiecutter.project_slug.upper()}}_ENV=development
       {%- if cookiecutter.mysql_version != "None" %}
@@ -71,7 +71,7 @@ services:
 
   check-imports:
     <<: *development-build
-    command: isort --check-only -rc {{cookiecutter.project_slug}}/. tests/.
+    command: isort --check-only {{cookiecutter.project_slug}}/. tests/.
     environment:
       - {{cookiecutter.project_slug.upper()}}_ENV=development
       {%- if cookiecutter.mysql_version != "None" %}
