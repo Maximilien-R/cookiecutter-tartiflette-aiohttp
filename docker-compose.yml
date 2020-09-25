@@ -14,7 +14,7 @@ services:
   format-imports:
     <<: *default-build
     <<: *mounted-app
-    command: isort -rc hooks/.
+    command: isort hooks/.
 
   format:
     <<: *default-build
@@ -23,7 +23,7 @@ services:
 
   check-imports:
     <<: *default-build
-    command: isort --check-only -rc hooks/.
+    command: isort --check-only hooks/.
 
   check-format:
     <<: *default-build
