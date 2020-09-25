@@ -5,9 +5,7 @@ from aiohttp.http_exceptions import HttpBadRequest, HttpProcessingError
 
 from {{cookiecutter.project_slug}}.server.handlers.graphql.context_factory import context_factory
 from {{cookiecutter.project_slug}}.server.handlers.graphql.errors import format_error
-from {{cookiecutter.project_slug}}.server.handlers.graphql.request_parsers import (
-    extract_graphql_params,
-)
+from {{cookiecutter.project_slug}}.server.handlers.graphql.request_parsers import extract_graphql_params
 
 __all__ = ("handle_graphql",)
 

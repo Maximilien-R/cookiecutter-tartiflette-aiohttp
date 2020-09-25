@@ -59,10 +59,26 @@ async def test_form_request_parser():
 @pytest.mark.parametrize(
     "content_type,method_called,expected",
     [
-        ("application/graphql", "text", {"query": "text"}),
-        ("application/json", "json", "json",),
-        ("application/x-www-form-urlencoded", "post", "post",),
-        ("multipart/form-data", "post", "post",),
+        (
+            "application/graphql",
+            "text",
+            {"query": "text"},
+        ),
+        (
+            "application/json",
+            "json",
+            "json",
+        ),
+        (
+            "application/x-www-form-urlencoded",
+            "post",
+            "post",
+        ),
+        (
+            "multipart/form-data",
+            "post",
+            "post",
+        ),
     ],
 )
 async def test_parse_request(content_type, method_called, expected):
@@ -162,7 +178,16 @@ def test_parse_graphql_params(body_data, url_data, expected):
 
 @pytest.mark.parametrize(
     "body_data,url_data",
-    [({"variables": "[/]"}, {},), ({}, {"variables": "[/]"},),],
+    [
+        (
+            {"variables": "[/]"},
+            {},
+        ),
+        (
+            {},
+            {"variables": "[/]"},
+        ),
+    ],
 )
 def test_parse_graphql_params_invalid_variables_json(body_data, url_data):
     with pytest.raises(

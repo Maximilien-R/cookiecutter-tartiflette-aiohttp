@@ -4,11 +4,7 @@ import pytest
 
 from tartiflette import TartifletteError
 
-from {{cookiecutter.project_slug}}.utils import (
-    configure_sentry,
-    sentry,
-    sentry_error_coercer,
-)
+from {{cookiecutter.project_slug}}.utils import configure_sentry, sentry, sentry_error_coercer
 
 
 def test_configure_sentry():
@@ -16,9 +12,7 @@ def test_configure_sentry():
     aiohttp_integration_mock = Mock()
     logging_integration_mock = Mock()
     with patch.object(sentry, "config", new={"sentry": config_mock}):
-        with patch(
-            "{{cookiecutter.project_slug}}.utils.sentry.sentry_sdk"
-        ) as sentry_sdk_mock:
+        with patch("{{cookiecutter.project_slug}}.utils.sentry.sentry_sdk") as sentry_sdk_mock:
             with patch(
                 "{{cookiecutter.project_slug}}.utils.sentry.AioHttpIntegration",
                 return_value=aiohttp_integration_mock,
@@ -47,7 +41,13 @@ def test_configure_sentry():
         "logged",
     ),
     [
-        (Mock(), {"message": "Exception"}, False, False, False,),
+        (
+            Mock(),
+            {"message": "Exception"},
+            False,
+            False,
+            False,
+        ),
         (
             Mock(original_error=Exception("Exception")),
             {"message": "Exception"},
@@ -85,16 +85,12 @@ async def test_sentry_error_coercer(
     capture_exception_response,
     logged,
 ):
-    with patch(
-        "{{cookiecutter.project_slug}}.utils.sentry.sentry_sdk",
-    ) as sentry_sdk_mock:
+    with patch("{{cookiecutter.project_slug}}.utils.sentry.sentry_sdk") as sentry_sdk_mock:
         sentry_sdk_mock.capture_exception = Mock(
             return_value=capture_exception_response
         )
 
-        with patch(
-            "{{cookiecutter.project_slug}}.utils.sentry.logger",
-        ) as logger_mock:
+        with patch("{{cookiecutter.project_slug}}.utils.sentry.logger") as logger_mock:
             assert await sentry_error_coercer(exception, error) == error
             if capture_exception_called:
                 sentry_sdk_mock.capture_exception.assert_called_once_with(

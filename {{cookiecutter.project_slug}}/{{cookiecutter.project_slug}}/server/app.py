@@ -12,6 +12,8 @@ def run_app() -> int:
     :rtype: int
     """
     web.run_app(
-        create_app(), host="0.0.0.0", port=8090,  # nosec
+        create_app(),
+        host="0.0.0.0",  # nosec
+        port=8090,
     )
     return 0

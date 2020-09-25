@@ -60,7 +60,7 @@ services:
 
   format:
     <<: *development-build
-    command: black -l 79 --target-version py36 {{cookiecutter.project_slug}} tests
+    command: black -l 79 --target-version py38 {{cookiecutter.project_slug}} tests
     environment:
       - {{cookiecutter.project_slug.upper()}}_ENV=development
       {%- if cookiecutter.mysql_version != "None" %}
@@ -80,7 +80,7 @@ services:
 
   check-format:
     <<: *development-build
-    command: black -l 79 --target-version py36 --check {{cookiecutter.project_slug}} tests
+    command: black -l 79 --target-version py38 --check {{cookiecutter.project_slug}} tests
     environment:
       - {{cookiecutter.project_slug.upper()}}_ENV=development
       {%- if cookiecutter.mysql_version != "None" %}
