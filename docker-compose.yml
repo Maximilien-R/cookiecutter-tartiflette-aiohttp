@@ -19,7 +19,7 @@ services:
   format:
     <<: *default-build
     <<: *mounted-app
-    command: black -l 79 --target-version py36 hooks
+    command: black -l 79 --target-version py38 hooks
 
   check-imports:
     <<: *default-build
@@ -27,7 +27,7 @@ services:
 
   check-format:
     <<: *default-build
-    command: black -l 79 --target-version py36 --check hooks
+    command: black -l 79 --target-version py38 --check hooks
 
   style:
     <<: *default-build
