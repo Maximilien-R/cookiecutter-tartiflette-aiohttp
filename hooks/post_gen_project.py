@@ -66,6 +66,13 @@ def main():
                     "registries",
                     "test_database.py",
                 ),
+                os.path.join(
+                    "tests",
+                    "unit",
+                    _PROJECT_SLUG,
+                    "utils",
+                    "test_database.py",
+                ),
             ]
         )
         _remove_line_in_file(
