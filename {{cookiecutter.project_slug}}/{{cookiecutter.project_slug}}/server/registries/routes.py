@@ -1,3 +1,5 @@
+from aiohttp import web
+
 from {{cookiecutter.project_slug}}.server.handlers import (
     {%- if cookiecutter.add_graphiql_route == "yes" %}
     handle_graphiql,
@@ -12,11 +14,11 @@ from {{cookiecutter.project_slug}}.server.handlers import (
 __all__ = ("register_routes",)
 
 
-def register_routes(app: "aiohttp.web.Application") -> None:
-    """
-    Registers routes into the application.
+def register_routes(app: web.Application) -> None:
+    """Register routes into the application.
+
     :param app: application to which register the routes
-    :type app: aiohttp.web.Application
+    :type app: web.Application
     """
     app.router.add_get("/graphql", handle_graphql)
     app.router.add_post("/graphql", handle_graphql)

@@ -7,8 +7,8 @@ __all__ = ("extract_database_credentials",)
 
 
 def extract_database_credentials() -> Dict[str, Any]:
-    """
-    Extracts database credentials from the database URL.
+    """Extract database credentials from the database URL.
+
     :return: database credentials
     :rtype: Dict[str, Any]
     """

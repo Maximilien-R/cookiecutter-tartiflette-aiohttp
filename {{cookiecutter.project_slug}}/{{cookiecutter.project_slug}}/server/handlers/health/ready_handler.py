@@ -3,15 +3,13 @@ from aiohttp import web
 __all__ = ("handle_ready",)
 
 
-async def handle_ready(
-    request: "aiohttp.web.Request",
-) -> "aiohttp.web.Response":
-    """
-    Ready service response handler.
+async def handle_ready(request: web.Request) -> web.Response:
+    """Ready service response handler.
+
     :param request: incoming aiohttp request
-    :type request: aiohttp.web.Request
+    :type request: web.Request
     :return: a 200 status "OK" response
-    :rtype: aiohttp.web.Response
+    :rtype: web.Response
     """
     # pylint: disable=unused-argument
     return web.Response(text="OK")

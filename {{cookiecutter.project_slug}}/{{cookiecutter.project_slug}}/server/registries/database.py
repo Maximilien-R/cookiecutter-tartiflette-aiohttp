@@ -1,15 +1,17 @@
 import aiomysql
 
+from aiohttp import web
+
 from {{cookiecutter.project_slug}}.utils import extract_database_credentials
 
 __all__ = ("register_database_pool",)
 
 
-async def register_database_pool(app: "aiohttp.web.Application") -> None:
-    """
-    Creates a MySQL pool and register it into the application.
+async def register_database_pool(app: web.Application) -> None:
+    """Create a MySQL pool and register it into the application.
+
     :param app: application to which register the MySQL pool
-    :type app: aiohttp.web.Application
+    :type app: web.Application
     """
     # pylint: disable=missing-yield-doc
     database_credentials = extract_database_credentials()

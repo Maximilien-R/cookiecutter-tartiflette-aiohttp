@@ -11,11 +11,11 @@ from {{cookiecutter.project_slug}}.server.registries import (
 __all__ = ("create_app",)
 
 
-def create_app() -> "aiohttp.web.Application":
-    """
-    Create and setup the application to run.
+def create_app() -> web.Application:
+    """Create and setup the application to run.
+
     :return: the application instance to run
-    :rtype: aiohttp.web.Application
+    :rtype: web.Application
     """
     app = web.Application()
     app.on_startup.append(register_graphql_engine)

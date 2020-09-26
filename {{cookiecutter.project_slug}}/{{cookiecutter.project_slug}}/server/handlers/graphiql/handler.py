@@ -8,8 +8,8 @@ _TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "templates")
 
 
 def _get_graphiql_template() -> str:
-    """
-    Returns the GraphiQL HTML template as string.
+    """Return the GraphiQL HTML template as string.
+
     :return: GraphiQL HTML template as string
     :rtype: str
     """
@@ -17,15 +17,13 @@ def _get_graphiql_template() -> str:
         return template_file.read()
 
 
-async def handle_graphiql(
-    request: "aiohttp.web.Request",
-) -> "aiohttp.web.Response":
-    """
-    GraphiQL service response handler.
+async def handle_graphiql(request: web.Request) -> web.Response:
+    """GraphiQL service response handler.
+
     :param request: incoming aiohttp request
-    :type request: aiohttp.web.Request
+    :type request: web.Request
     :return: a GraphQL response
-    :rtype: aiohttp.web.Response
+    :rtype: web.Response
     """
     # pylint: disable=unused-argument
     return web.Response(

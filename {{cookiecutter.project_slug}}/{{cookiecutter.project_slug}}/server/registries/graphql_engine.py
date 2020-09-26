@@ -1,3 +1,4 @@
+from aiohttp import web
 from tartiflette import Engine
 {% if cookiecutter.add_sentry == "yes" %}
 from {{cookiecutter.project_slug}}.utils import sentry_error_coercer
@@ -17,11 +18,11 @@ _GRAPHQL_ENGINE: "Engine" = Engine(
 )
 
 
-async def register_graphql_engine(app: "aiohttp.web.Application") -> None:
-    """
-    Creates a GraphQL engine and register it into the application.
+async def register_graphql_engine(app: web.Application) -> None:
+    """Create a GraphQL engine and register it into the application.
+
     :param app: application to which register the GraphQL engine
-    :type app: aiohttp.web.Application
+    :type app: web.Application
     """
     await _GRAPHQL_ENGINE.cook()
     app["graphql_engine"] = _GRAPHQL_ENGINE
