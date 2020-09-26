@@ -14,9 +14,18 @@ x-testing-build: &testing-build
     args:
       requirement_file: testing.txt
 
+x-networks: &networks
+  networks:
+    - ns
+
+x-mounted: &mounted
+  volumes:
+    - .:/usr/src/app
+
 services:
   {%- if cookiecutter.mysql_version != "None" %}
   database:
+    <<: *networks
     image: mysql:{{cookiecutter.mysql_version}}
     ports:
       - 3306
@@ -28,11 +37,10 @@ services:
       - MYSQL_DATABASE={{cookiecutter.project_slug}}
     volumes:
       - ./.docker/fixtures.sql:/docker-entrypoint-initdb.d/fixtures.sql
-    networks:
-      - ns
   {% endif %}
   app:
     <<: *development-build
+    <<: *networks
     environment:
       - {{cookiecutter.project_slug.upper()}}_ENV=development
       {%- if cookiecutter.mysql_version != "None" %}
@@ -44,10 +52,9 @@ services:
     {%- endif %}
     ports:
       - 8090:8090
-    networks:
-      - ns
 
   format-imports:
+    <<: *mounted
     <<: *development-build
     command: isort {{cookiecutter.project_slug}}/. tests/.
     environment:
@@ -55,10 +62,9 @@ services:
       {%- if cookiecutter.mysql_version != "None" %}
       - DATABASE_IS_OPTIONAL=1
       {%- endif %}
-    volumes:
-      - .:/usr/src/app
 
   format:
+    <<: *mounted
     <<: *development-build
     command: black -l 79 --target-version py38 {{cookiecutter.project_slug}} tests
     environment:
@@ -66,8 +72,6 @@ services:
       {%- if cookiecutter.mysql_version != "None" %}
       - DATABASE_IS_OPTIONAL=1
       {%- endif %}
-    volumes:
-      - .:/usr/src/app
 
   check-imports:
     <<: *development-build
@@ -126,6 +130,7 @@ services:
       - ./reports:/usr/src/app/reports
 
   test-functional:
+    <<: *networks
     <<: *testing-build
     command: py.test -s tests/functional -vvvvvv --junitxml=reports/report_func_tests.xml --cov . --cov-config .coveragerc --cov-report term-missing --cov-report xml:reports/coverage_functional.xml
     environment:
@@ -139,8 +144,6 @@ services:
     {%- endif %}
     volumes:
       - ./reports:/usr/src/app/reports
-    networks:
-      - ns
 
 networks:
   ns:
