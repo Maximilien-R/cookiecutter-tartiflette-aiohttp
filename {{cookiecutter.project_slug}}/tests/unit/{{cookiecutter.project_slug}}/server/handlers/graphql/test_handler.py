@@ -1,10 +1,8 @@
 import json
 
-from unittest.mock import Mock, patch
+from unittest.mock import AsyncMock, Mock, patch
 
 import pytest
-
-from asynctest import CoroutineMock
 
 from {{cookiecutter.project_slug}}.server.handlers.graphql.handler import _prepare_response, handle_graphql
 
@@ -78,13 +76,13 @@ async def test_handle_graphql():
 
     request_mock = Mock()
     request_mock.app = {"graphql_engine": Mock()}
-    request_mock.app["graphql_engine"].execute = CoroutineMock(
+    request_mock.app["graphql_engine"].execute = AsyncMock(
         return_value=expected_response
     )
 
     with patch(
         "{{cookiecutter.project_slug}}.server.handlers.graphql.handler.extract_graphql_params",
-        new_callable=CoroutineMock,
+        new_callable=AsyncMock,
         return_value=(query, None, None),
     ) as extract_graphql_params_mock:
         with patch(
@@ -131,7 +129,7 @@ async def test_handle_graphql_exception(
     request_mock = Mock()
     with patch(
         "{{cookiecutter.project_slug}}.server.handlers.graphql.handler.extract_graphql_params",
-        new_callable=CoroutineMock,
+        new_callable=AsyncMock,
         side_effect=[extracted_graphql_params],
     ) as extract_graphql_params_mock:
         with patch(

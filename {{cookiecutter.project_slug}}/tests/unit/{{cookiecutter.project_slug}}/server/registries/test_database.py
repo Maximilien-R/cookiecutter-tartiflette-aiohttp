@@ -1,9 +1,7 @@
-from unittest.mock import Mock, patch
+from unittest.mock import AsyncMock, Mock, patch
 
 import aiomysql
 import pytest
-
-from asynctest import CoroutineMock
 
 from {{cookiecutter.project_slug}}.server.registries import register_database_pool
 
@@ -14,7 +12,7 @@ async def test_register_database_pool():
 
     pool_mock = Mock()
     pool_mock.close = Mock()
-    pool_mock.wait_closed = CoroutineMock()
+    pool_mock.wait_closed = AsyncMock()
 
     database_credentials_mock = {
         "host": "host",
@@ -26,7 +24,7 @@ async def test_register_database_pool():
 
     with patch(
         "{{cookiecutter.project_slug}}.server.registries.database.aiomysql.create_pool",
-        new_callable=CoroutineMock,
+        new_callable=AsyncMock,
         return_value=pool_mock,
     ) as create_pool_mock:
         with patch(

@@ -1,8 +1,6 @@
-from unittest.mock import patch
+from unittest.mock import AsyncMock, Mock, patch
 
 import pytest
-
-from asynctest import CoroutineMock, Mock
 
 from {{cookiecutter.project_slug}}.server.registries import graphql_engine, register_graphql_engine
 
@@ -12,7 +10,7 @@ async def test_register_graphql_engine():
     app_mock = {}
 
     graphql_engine_mock = Mock()
-    graphql_engine_mock.cook = CoroutineMock()
+    graphql_engine_mock.cook = AsyncMock()
 
     with patch.object(
         graphql_engine, "_GRAPHQL_ENGINE", new=graphql_engine_mock

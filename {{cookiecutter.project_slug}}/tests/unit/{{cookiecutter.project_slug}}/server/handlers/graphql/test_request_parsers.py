@@ -1,9 +1,8 @@
-from unittest.mock import Mock, patch
+from unittest.mock import AsyncMock, Mock, patch
 
 import pytest
 
 from aiohttp.http_exceptions import HttpBadRequest
-from asynctest import CoroutineMock
 
 from {{cookiecutter.project_slug}}.server.handlers.graphql.request_parsers import (
     _form_request_parser,
@@ -20,7 +19,7 @@ async def test_graphql_request_parser():
     query = '{ hello(name: "{{cookiecutter.author_name}}") }'
 
     request = Mock()
-    request.text = CoroutineMock(return_value=query)
+    request.text = AsyncMock(return_value=query)
     result = await _graphql_request_parser(request)
     assert result == {"query": query}
 
@@ -30,7 +29,7 @@ async def test_json_request_parser():
     payload = {"query": '{ hello(name: "{{cookiecutter.author_name}}") }'}
 
     request = Mock()
-    request.json = CoroutineMock(return_value=payload)
+    request.json = AsyncMock(return_value=payload)
     result = await _json_request_parser(request)
     assert result == payload
 
@@ -38,7 +37,7 @@ async def test_json_request_parser():
 @pytest.mark.asyncio
 async def test_json_request_parser_invalid_json():
     request = Mock()
-    request.json = CoroutineMock(side_effect=[Exception()])
+    request.json = AsyncMock(side_effect=[Exception()])
     with pytest.raises(
         HttpBadRequest, match="400, message='POST body sent invalid JSON.'"
     ):
@@ -50,7 +49,7 @@ async def test_form_request_parser():
     payload = {"query": '{ hello(name: "{{cookiecutter.author_name}}") }'}
 
     request = Mock()
-    request.post = CoroutineMock(return_value=payload)
+    request.post = AsyncMock(return_value=payload)
     result = await _form_request_parser(request)
     assert result == payload
 
@@ -83,9 +82,9 @@ async def test_form_request_parser():
 )
 async def test_parse_request(content_type, method_called, expected):
     request = Mock(content_type=content_type)
-    request.text = CoroutineMock(return_value="text")
-    request.json = CoroutineMock(return_value="json")
-    request.post = CoroutineMock(return_value="post")
+    request.text = AsyncMock(return_value="text")
+    request.json = AsyncMock(return_value="json")
+    request.post = AsyncMock(return_value="post")
     response = await _parse_request(request)
     assert response == expected
     getattr(request, method_called).assert_awaited_once()
@@ -208,7 +207,7 @@ async def test_extract_graphql_params():
     ) as parse_graphql_params_mock:
         with patch(
             "{{cookiecutter.project_slug}}.server.handlers.graphql.request_parsers._parse_request",
-            new_callable=CoroutineMock,
+            new_callable=AsyncMock,
             return_value=parsed_request,
         ) as parse_request_mock:
             await extract_graphql_params(request)
