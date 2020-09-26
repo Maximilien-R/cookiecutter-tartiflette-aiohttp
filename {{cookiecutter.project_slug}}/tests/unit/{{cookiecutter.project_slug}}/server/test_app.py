@@ -12,6 +12,6 @@ def test_run_app():
         ) as create_app_mock:
             assert run_app() == 0
             create_app_mock.assert_called_once()
-            run_app_mock.assert_called_once_with(
-                app_mock, host="0.0.0.0", port=8090
-            )
+        run_app_mock.assert_called_once_with(
+            app_mock, host="0.0.0.0", port=8090, handle_signals=True
+        )

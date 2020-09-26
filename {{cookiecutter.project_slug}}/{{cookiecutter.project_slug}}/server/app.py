@@ -15,5 +15,6 @@ def run_app() -> int:
         create_app(),
         host="0.0.0.0",  # nosec
         port=8090,
+        handle_signals=True,
     )
     return 0
