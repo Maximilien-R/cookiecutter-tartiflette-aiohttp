@@ -6,8 +6,8 @@ __all__ = ("run_app",)
 
 
 def run_app() -> int:
-    """
-    Entry point of the application.
+    """Entry point of the application.
+
     :return: application exit code
     :rtype: int
     """

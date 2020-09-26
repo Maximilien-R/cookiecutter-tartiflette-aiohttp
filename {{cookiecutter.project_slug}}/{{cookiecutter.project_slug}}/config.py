@@ -14,7 +14,7 @@ def load(
     key: Optional[str] = None,
     filename: Optional[str] = None,
 ) -> None:
-    """Load the appropriate YAML setting file related to the current env.
+    """Load the appropriate YAML setting file linked to the current env.
 
     :param obj: the settings instance
     :param env: settings current env (upper case)

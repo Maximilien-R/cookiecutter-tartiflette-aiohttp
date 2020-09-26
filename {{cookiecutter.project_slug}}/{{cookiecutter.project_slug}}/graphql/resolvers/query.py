@@ -12,9 +12,9 @@ async def resolve_query_hello(
     ctx: Dict[str, Any],
     info: "ResolveInfo",
 ) -> str:
-    """
-    Resolves the "Query.hello" field.
-    :param parent: initial value provided to the GraphQL engine execute method
+    """Resolve the "Query.hello" field.
+
+    :param parent: initial value provided to the GraphQL execute method
     :param args: computed arguments related to the resolved field
     :param ctx: context provided to the GraphQL engine execute method
     :param info: information related to the execution and resolved field

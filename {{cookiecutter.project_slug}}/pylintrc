@@ -15,7 +15,8 @@ good-names=
     fh,  # file handle
     ts,  # timestamp
     rx,  # regular
-    ex,Run,
+    ex,
+    Run,
     logger,
     config
 
@@ -23,14 +24,9 @@ good-names=
 [MESSAGE CONTROL]
 # Disable the message, report, category or checker with the given id(s)
 disable=
-    C0111,  # Missing docstring
-    R0801,  # Indicates that a set of similar lines has been detected among multiple file
-    I0011,  # Used when an inline option disables a message or a messages category
-    I0012,  # Used when an inline option enables a message or a messages category
-    R0903,  # Used when class has too few public methods, so be sure it's really worth it
-    W0142,  # Used when a function or method is called using *args or **kwargs to dispatch arguments
-    C0199,  # Used when a blank line is found at the beginning of a docstring
-    C0330  # Used when there are some mixed tabs and spaces in a module
+    missing-module-docstring,
+    missing-function-docstring,
+    duplicate-code
 
 
 [DESIGN]

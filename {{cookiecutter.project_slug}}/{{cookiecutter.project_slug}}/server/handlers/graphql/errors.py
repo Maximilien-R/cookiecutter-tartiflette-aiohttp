@@ -6,8 +6,8 @@ __all__ = ("format_error",)
 
 
 def format_error(exception: Exception) -> Dict[str, Any]:
-    """
-    Formats an exception into a formatted GraphQL error.
+    """Format an exception into a formatted GraphQL error.
+
     :param exception: the exception to format
     :type exception: Exception
     :return: a formatted GraphQL error

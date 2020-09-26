@@ -14,9 +14,9 @@ def _prepare_response(
     result: Dict[str, Any],
     status: int = 200,
     headers: Optional[Dict[str, Any]] = None,
-) -> "aiohttp.web.Response":
-    """
-    Formats and returns a GraphQL response.
+) -> web.Response:
+    """Format and return a GraphQL response.
+
     :param result: result of the GraphQL engine
     :param status: HTTP status code of the response
     :param headers: headers to forward on the response
@@ -24,7 +24,7 @@ def _prepare_response(
     :type status: int
     :type headers: Optional[Dict[str, Any]]
     :return: a GraphQL response
-    :rtype: aiohttp.web.Response
+    :rtype: web.Response
     """
     response = {"data": result.get("data")}
 
@@ -39,15 +39,13 @@ def _prepare_response(
     return web.json_response(response, status=status, headers=headers)
 
 
-async def handle_graphql(
-    request: "aiohttp.web.Request",
-) -> "aiohttp.web.Response":
-    """
-    GraphQL service response handler.
+async def handle_graphql(request: web.Request) -> web.Response:
+    """GraphQL service response handler.
+
     :param request: incoming aiohttp request
-    :type request: aiohttp.web.Request
+    :type request: web.Request
     :return: a GraphQL response
-    :rtype: aiohttp.web.Response
+    :rtype: web.Response
     :raise HttpBadRequest: if none query was provided
     """
     try:
