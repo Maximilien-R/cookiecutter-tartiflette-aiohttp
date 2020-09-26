@@ -77,7 +77,7 @@ def main():
         _remove_files(
             [
                 os.path.join(_PROJECT_SLUG, "server", "handlers", "health"),
-                os.path.join("tests", "functional", _PROJECT_SLUG, "health",),
+                os.path.join("tests", "functional", _PROJECT_SLUG, "health"),
                 os.path.join(
                     "tests",
                     "unit",
@@ -93,9 +93,7 @@ def main():
         _remove_files(
             [
                 os.path.join(_PROJECT_SLUG, "server", "handlers", "graphiql"),
-                os.path.join(
-                    "tests", "functional", _PROJECT_SLUG, "graphiql",
-                ),
+                os.path.join("tests", "functional", _PROJECT_SLUG, "graphiql"),
                 os.path.join(
                     "tests",
                     "unit",
@@ -112,7 +110,7 @@ def main():
             [
                 os.path.join(_PROJECT_SLUG, "utils", "sentry.py"),
                 os.path.join(
-                    "tests", "unit", _PROJECT_SLUG, "utils", "test_sentry.py",
+                    "tests", "unit", _PROJECT_SLUG, "utils", "test_sentry.py"
                 ),
             ]
         )

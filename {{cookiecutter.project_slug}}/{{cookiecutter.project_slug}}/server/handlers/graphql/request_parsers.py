@@ -33,8 +33,8 @@ async def _json_request_parser(
     """
     try:
         return await request.json()
-    except Exception:
-        raise HttpBadRequest(message="POST body sent invalid JSON.")
+    except Exception as e:
+        raise HttpBadRequest(message="POST body sent invalid JSON.") from e
 
 
 async def _form_request_parser(
@@ -95,8 +95,8 @@ def _parse_graphql_params(
     if variables and isinstance(variables, str):
         try:
             variables = json.loads(variables)
-        except Exception:
-            raise HttpBadRequest("Variables are invalid JSON.")
+        except Exception as e:
+            raise HttpBadRequest("Variables are invalid JSON.") from e
     elif not isinstance(variables, dict):
         variables = None
 

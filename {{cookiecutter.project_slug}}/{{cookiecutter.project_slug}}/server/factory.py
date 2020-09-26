@@ -11,7 +11,7 @@ from {{cookiecutter.project_slug}}.server.registries import (
 __all__ = ("create_app",)
 
 
-async def create_app() -> "aiohttp.web.Application":
+def create_app() -> "aiohttp.web.Application":
     """
     Create and setup the application to run.
     :return: the application instance to run

@@ -37,7 +37,7 @@ from {{cookiecutter.project_slug}}.server.handlers.graphql.errors import format_
             TartifletteError(
                 "TartifletteError",
                 locations=[
-                    Location(line=1, column=0, line_end=2, column_end=20,)
+                    Location(line=1, column=0, line_end=2, column_end=20)
                 ],
             ),
             {

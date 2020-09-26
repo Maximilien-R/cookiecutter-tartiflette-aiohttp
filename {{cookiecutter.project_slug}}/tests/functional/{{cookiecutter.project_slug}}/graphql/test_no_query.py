@@ -5,7 +5,8 @@ import pytest
 async def test_handle_graphql_no_query_application_graphql(app_client, method):
     response = await (
         getattr(app_client, method)(
-            "/graphql", headers={"content-type": "application/graphql"},
+            "/graphql",
+            headers={"content-type": "application/graphql"},
         )
     )
 
@@ -26,7 +27,9 @@ async def test_handle_graphql_no_query_application_graphql(app_client, method):
 async def test_handle_graphql_no_query_application_json(app_client, method):
     response = await (
         getattr(app_client, method)(
-            "/graphql", json={}, headers={"content-type": "application/json"},
+            "/graphql",
+            json={},
+            headers={"content-type": "application/json"},
         )
     )
 

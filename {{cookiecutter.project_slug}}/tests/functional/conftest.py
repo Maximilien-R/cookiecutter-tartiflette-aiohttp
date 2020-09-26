@@ -18,5 +18,4 @@ def app_client(
     :return: an aiohttp TestClient linked to the application
     :rtype: aiohttp.test_utils.TestClient
     """
-    app = loop.run_until_complete(create_app())
-    return loop.run_until_complete(aiohttp_client(app))
+    return loop.run_until_complete(aiohttp_client(create_app()))

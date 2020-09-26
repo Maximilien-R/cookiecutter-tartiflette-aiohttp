@@ -11,9 +11,24 @@ _EXPECTED_RESPONSE = {"data": {"hello": "Hello {{cookiecutter.author_name}}!"}}
     "method,content_type,body,query_params",
     [
         # Content-Type: application/graphql
-        ("get", "application/graphql", None, {"query": _HELLO_QUERY},),
-        ("post", "application/graphql", None, {"query": _HELLO_QUERY},),
-        ("post", "application/graphql", _HELLO_QUERY, None,),
+        (
+            "get",
+            "application/graphql",
+            None,
+            {"query": _HELLO_QUERY},
+        ),
+        (
+            "post",
+            "application/graphql",
+            None,
+            {"query": _HELLO_QUERY},
+        ),
+        (
+            "post",
+            "application/graphql",
+            _HELLO_QUERY,
+            None,
+        ),
         # Content-Type: application/json
         (
             "get",
