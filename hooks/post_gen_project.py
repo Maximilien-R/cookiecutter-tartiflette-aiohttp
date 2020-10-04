@@ -10,6 +10,7 @@ _PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 _PROJECT_SLUG = "{{ cookiecutter.project_slug }}"
 _OPEN_SOURCE_LICENSE = "{{ cookiecutter.open_source_license }}"
 _MYSQL_VERSION = "{{ cookiecutter.mysql_version }}"
+_ADD_DEPENDABOT_CONFIG = "{{ cookiecutter.add_dependabot_config }}"
 _ADD_HEALTH_ROUTES = "{{ cookiecutter.add_health_routes }}"
 _ADD_GRAPHIQL_ROUTE = "{{ cookiecutter.add_graphiql_route }}"
 _ADD_SENTRY = "{{ cookiecutter.add_sentry }}"
@@ -79,6 +80,9 @@ def main():
             r"^aiomysql==[0-9]+\.[0-9]+\.[0-9]+$",
             os.path.join("requirements", "default.txt"),
         )
+
+    if _ADD_DEPENDABOT_CONFIG != "yes":
+        _remove_files(".dependabot")
 
     if _ADD_HEALTH_ROUTES != "yes":
         _remove_files(

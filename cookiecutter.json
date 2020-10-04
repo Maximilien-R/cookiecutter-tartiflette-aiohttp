@@ -20,6 +20,7 @@
     "5.5",
     "None"
   ],
+  "add_dependabot_config": ["yes", "no"],
   "add_health_routes": ["yes", "no"],
   "add_graphiql_route": ["yes", "no"],
   "add_sentry": ["yes", "no"],
