@@ -13,6 +13,8 @@ x-testing-build: &testing-build
     dockerfile: Dockerfile
     args:
       requirement_file: testing.txt
+  volumes:
+    - ./reports:/usr/src/app/reports
 
 x-networks: &networks
   networks:
@@ -126,8 +128,6 @@ services:
       {%- if cookiecutter.mysql_version != "None" %}
       - DATABASE_IS_OPTIONAL=1
       {%- endif %}
-    volumes:
-      - ./reports:/usr/src/app/reports
 
   test-functional:
     <<: *networks
@@ -142,8 +142,6 @@ services:
     depends_on:
       - database
     {%- endif %}
-    volumes:
-      - ./reports:/usr/src/app/reports
 
 networks:
   ns:
