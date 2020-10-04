@@ -1,0 +1,7 @@
+version: "3.4"
+
+services:
+  app:
+    command: hupper -m {{cookiecutter.project_slug}} -w config/*.yml
+    volumes:
+      - .:/usr/src/app
