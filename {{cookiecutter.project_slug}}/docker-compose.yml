@@ -16,13 +16,13 @@ x-testing-build: &testing-build
   volumes:
     - ./reports:/usr/src/app/reports
 
+x-mount-app: &mount-app
+  volumes:
+    - .:/usr/src/app
+
 x-networks: &networks
   networks:
     - ns
-
-x-mounted: &mounted
-  volumes:
-    - .:/usr/src/app
 
 services:
   {%- if cookiecutter.mysql_version != "None" %}
@@ -56,8 +56,8 @@ services:
       - 8090:8090
 
   format-imports:
-    <<: *mounted
     <<: *development-build
+    <<: *mount-app
     command: isort {{cookiecutter.project_slug}}/. tests/.
     environment:
       - {{cookiecutter.project_slug.upper()}}_ENV=development
@@ -66,8 +66,8 @@ services:
       {%- endif %}
 
   format:
-    <<: *mounted
     <<: *development-build
+    <<: *mount-app
     command: black -l 79 --target-version py38 {{cookiecutter.project_slug}} tests
     environment:
       - {{cookiecutter.project_slug.upper()}}_ENV=development
