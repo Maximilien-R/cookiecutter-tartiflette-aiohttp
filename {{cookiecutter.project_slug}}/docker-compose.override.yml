@@ -2,6 +2,6 @@ version: "3.4"
 
 services:
   app:
-    command: hupper -m {{cookiecutter.project_slug}} -w config/*.yml
+    command: hupper -m {{cookiecutter.project_slug}} -w config/*.yml -w {{cookiecutter.project_slug}}/graphql/sdl/*.graphql
     volumes:
       - .:/usr/src/app
