@@ -14,14 +14,20 @@ a [`tartiflette`](https://github.com/tartiflette/tartiflette) AIOHTTP API.
 ## Features
 
 Opinionated:
+* Provides a fully-featured GraphQL AIOHTTP application running with [`tartiflette`](https://github.com/tartiflette/tartiflette)
+* Provides a file upload support through an implementation of the [`graphql-multipart-request-spec`](https://github.com/jaydenseric/graphql-multipart-request-spec)
 * Provides `Docker` support through [`docker-compose`](https://github.com/docker/compose)
 * Follows the [`gazr`](https://gazr.io) specification to launch common tasks
 * Layered environment configuration system through [`dynaconf`](https://github.com/rochacbruno/dynaconf)
+* Provides a configurable JSON logger through [`python-json-logger`](https://github.com/madzak/python-json-logger)
+* Provides an hot reload application through [`hupper`](https://github.com/Pylons/hupper)
 * Implements unit tests with [`pytest`](https://github.com/pytest-dev/pytest)
 * Implements functional tests with [`pytest`](https://github.com/pytest-dev/pytest)
 
 Optionals:
+* Provides a choice of different open source licenses
 * Provides `MySQL` database through [`docker-compose`](https://github.com/docker/compose)
+* Provides a default [`dependabot`](https://dependabot.com) to keep your dependencies up-to-date 
 * Provides implementations for health routes (`/health/ready` & `/health/live`)
 * Provides a GraphiQL route (`/graphiql`)
 * Provides [`Sentry`](https://sentry.io) integration
@@ -31,12 +37,12 @@ Optionals:
 
 Install the latest [Cookiecutter](https://github.com/audreyr/cookiecutter) if
 you haven't installed it yet:
-```
+```bash
 $ pip install -U cookiecutter
 ```
 
-Generate a tartiflette AIOHTTP project with the following command:
-```
+Generate your tartiflette AIOHTTP project with the following command:
+```bash
 $ cookiecutter https://github.com/Maximilien-R/cookiecutter-tartiflette-aiohttp.git
 ```
 
@@ -44,7 +50,7 @@ You'll be prompted for some values. Fill them to create your tartiflette
 project.
 
 Once your tartiflette AIOHTTP project created, move to your project directory:
-```
+```bash
 $ cd <your-directory>
 $ git init
 $ git add .
@@ -54,7 +60,7 @@ $ git push -u origin master
 ```
 
 Now, you can work on your project and use all of the pre-defined `Makefile`
-targets:
+targets (cf. [`gazr`](https://gazr.io)):
 ```
 $ make run
 $ make format
@@ -112,5 +118,7 @@ $ heroku apps:destroy
 ## TODO
 
 * Add an option to use `PostgreSQL` instead of `MySQL`
-* Setup some CI configuration (Travis-CI, GitHub Actions...)
 * Add an option to handle GraphQL subscriptions
+* Setup some CI configuration (Travis-CI, GitHub Actions...)
+* Add an option to have APM
+* Add an option to have statsd
