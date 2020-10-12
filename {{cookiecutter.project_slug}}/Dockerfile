@@ -1,4 +1,4 @@
-FROM python:3.8.6
+FROM python:3.9.0
 
 RUN apt-get update && apt-get install -y cmake bison flex \
       && mkdir -p /usr/src/app
