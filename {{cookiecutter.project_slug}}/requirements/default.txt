@@ -5,5 +5,5 @@ aiohttp==3.6.3
 aiomysql==0.0.20
 dynaconf[yaml]==3.1.2
 python-json-logger==2.0.1
-sentry-sdk==0.18.0
+sentry-sdk==0.19.1
 tartiflette==1.2.1
