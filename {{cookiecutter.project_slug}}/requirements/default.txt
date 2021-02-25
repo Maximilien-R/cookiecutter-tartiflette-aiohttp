@@ -1,5 +1,5 @@
 Cython==0.29.22
-uvloop==0.14.0
+uvloop==0.15.2
 
 aiohttp==3.7.3
 aiomysql==0.0.21
