@@ -4,5 +4,5 @@ bandit==1.7.0
 black==20.8b1
 hupper==1.10.2
 isort==5.8.0
-pylint==2.7.0
+pylint==2.7.4
 xenon==0.7.1
