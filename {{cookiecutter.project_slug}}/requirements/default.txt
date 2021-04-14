@@ -3,7 +3,7 @@ uvloop==0.15.2
 
 aiohttp==3.7.4
 aiomysql==0.0.21
-dynaconf[yaml]==3.1.2
+dynaconf[yaml]==3.1.4
 python-json-logger==2.0.1
 sentry-sdk==0.19.5
 tartiflette==1.2.1
