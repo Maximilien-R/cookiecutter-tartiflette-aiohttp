@@ -1,0 +1,77 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "04:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - Maximilien-R
+  ignore:
+  - dependency-name: isort
+    versions:
+    - 5.8.0
+  - dependency-name: pylint
+    versions:
+    - 2.7.2
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "04:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - Maximilien-R
+  ignore:
+  - dependency-name: python
+    versions:
+    - 3.9.1
+    - 3.9.2
+    - 3.9.3
+- package-ecosystem: pip
+  directory: "/{{cookiecutter.project_slug}}/requirements"
+  schedule:
+    interval: weekly
+    time: "04:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - Maximilien-R
+  ignore:
+  - dependency-name: tartiflette
+    versions:
+    - 1.3.0
+    - 1.3.1
+    - 1.3.2
+  - dependency-name: dynaconf[yaml]
+    versions:
+    - 3.1.3
+  - dependency-name: pylint
+    versions:
+    - 2.7.1
+    - 2.7.2
+  - dependency-name: sentry-sdk
+    versions:
+    - 0.20.1
+    - 0.20.3
+  - dependency-name: uvloop
+    versions:
+    - 0.15.0
+  - dependency-name: pytest
+    versions:
+    - 6.2.2
+- package-ecosystem: docker
+  directory: "/{{cookiecutter.project_slug}}"
+  schedule:
+    interval: weekly
+    time: "04:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - Maximilien-R
+  ignore:
+  - dependency-name: python
+    versions:
+    - 3.9.1
+    - 3.9.2
+    - 3.9.3
+    - 3.9.4
