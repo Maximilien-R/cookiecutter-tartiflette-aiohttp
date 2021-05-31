@@ -5,4 +5,4 @@ black==21.4b0
 hupper==1.10.2
 isort==5.8.0
 pylint==2.8.1
-xenon==0.7.1
+xenon==0.7.3
